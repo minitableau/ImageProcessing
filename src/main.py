@@ -1,6 +1,7 @@
 from PIL import Image
+from networkx.drawing.tests.test_pylab import plt
 
-from src.filtres.noir_et_blanc import noir_et_blanc
+from src.filtres.Appliquer_masque import appliquer_masque
 
 # img = Image.open("../Images/5Ballons.jpg")
 # A = noir_et_blanc(img)
