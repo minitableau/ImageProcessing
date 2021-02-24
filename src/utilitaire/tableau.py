@@ -10,8 +10,3 @@ def equals(tab1: List, tab2: List) -> bool:
             return False
 
     return True
-
-
-# au cas ou
-def unequals(tab1: List, tab2: List) -> bool:
-    return not equals(tab1, tab2)
