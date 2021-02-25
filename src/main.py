@@ -1,5 +1,5 @@
+import matplotlib.pyplot as plt
 from PIL import Image
-from networkx.drawing.tests.test_pylab import plt
 
 from src.filtres.Appliquer_masque import appliquer_masque
 
