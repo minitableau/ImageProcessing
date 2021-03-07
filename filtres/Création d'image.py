@@ -7,7 +7,7 @@ plt.imshow(image)
 plt.show()
 # permet de crée une image toute noir
 
-imagepil = Image.open("../../Images/5Ballons.jpg")
+imagepil = Image.open("../resources/images/plage_arbre.jpg")
 im = np.array(imagepil)
 plt.imshow(im)
 plt.show()
@@ -34,4 +34,4 @@ plt.show()
 
 
 imagepil = Image.fromarray(im)  # Transformation du tableau en image PIL
-imagepil.save("../../Test/Imagemodif.jpg")  # sauvegarde de l'image modifié
+imagepil.save("../../test/Imagemodif.jpg")  # sauvegarde de l'image modifié
