@@ -14,8 +14,8 @@ if len(arg) != 3:
 
 chemin_image, chemin_masque, taillecadre = (arg[1], arg[2], 3)
 
-image: Image = cv2.imread(chemin_image)
-masque: Image = cv2.imread(chemin_masque, 0)
+image = cv2.imread(chemin_image, 1)
+masque = cv2.imread(chemin_masque, 0)
 
 # le deuxième argument permet de lire l'image en noir et blanc (c'est un masque donc inutile de le lire en couleur)
 
