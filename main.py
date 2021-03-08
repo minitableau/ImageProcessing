@@ -12,16 +12,18 @@ if len(arg) != 3:
     # ./resources/images/plage_arbre.jpg ./resources/masques/masque_arbre.jpg
     exit()
 
-chemin_image, chemin_masque, taillecadre = (arg[1], arg[2], 3)
+chemin_image, chemin_masque, taille_cadre = (arg[1], arg[2], 3)
 
 image = cv2.imread(chemin_image, 1)
 masque = cv2.imread(chemin_masque, 0)
 
-# le deuxième argument permet de lire l'image en noir et blanc (c'est un masque donc inutile de le lire en couleur)
+# le deuxième argument permet de lire l'image en noir et blanc (c'est un masque donc inutile de le lire en couleur),
+# cela permet aussi donc de n'avoir que un entier dans le programme qui applique le masque
 
 if image is None or masque is None:
     print(
-        "Les chemins fournis pour l'image ou pour le masque ne sont pas valides (doivent être lancés depuis le dossier source du projet)")
+        "Les chemins fournis pour l'image ou pour le masque ne sont pas valides (doivent être lancés depuis le "
+        "dossier source du projet)")
     exit()
 
 x_image, y_image, channels = image.shape
@@ -33,10 +35,13 @@ if x_image != x_masque or y_image != y_masque:
 
 plage_parasol_noir = appliquer_masque(image, masque)
 
-cv2.imshow('Image', plage_parasol_noir)
-cv2.waitKey()
+cv2.imshow('Image : Plage parasol noir', plage_parasol_noir)
+cv2.waitKey()  # permet d'ouvrir la fenêtre
 # Idée si l'image est en noir et blanc passer d'abord tout les pixel noir d'un couleur puis appliquer le filtre puis
 # remettre la couleur noir
 
-# plage_arbre_noir.save("../Résultats/Plage_arbre_noir.jpg")
-# permet de sauvegarder l'image dans le dossier Résultats
+# cv2.imwrite(("./resources/resultats/Plage_arbre_noir.jpg"),plage_parasol_noir)
+# permet de sauvegarder l'image dans le dossier résultats
+
+
+# Commande de lancement : py main.py ./resources/images/plage_parasol.jpg ./resources/masques/masque_parasol.jpg
