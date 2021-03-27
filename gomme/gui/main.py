@@ -7,7 +7,11 @@ class Paint(object):
     DEFAULT_COLOR = 'black'
 
     def __init__(self):
-        self.root = Tk()
+        self.image = Tk()
+        self.image.config(bg='#CD5C5C')
+
+        self.c = Canvas(self.image, bg='white', width=1700, height=800)
+        self.c.grid(row=1, columnspan=5)
 
         self.pen_button = Button(self.image, text='stylo', command=self.use_pen, bg='#FA8072')
         self.pen_button.grid(row=0, column=0)
@@ -21,7 +25,7 @@ class Paint(object):
         self.eraser_button = Button(self.image, text='gomme', command=self.use_eraser, bg='#FA8072')
         self.eraser_button.grid(row=0, column=3)
 
-        self.choose_size_button = Scale(self.root, from_=1, to=10, orient=HORIZONTAL)
+        self.choose_size_button = Scale(self.image, from_=1, to=30, orient=HORIZONTAL, bg='#FA8072')
         self.choose_size_button.grid(row=0, column=4)
 
         self.setup()
