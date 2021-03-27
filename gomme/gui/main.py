@@ -3,33 +3,29 @@ from tkinter.colorchooser import askcolor
 
 
 class Paint(object):
-
     DEFAULT_PEN_SIZE = 5.0
     DEFAULT_COLOR = 'black'
 
     def __init__(self):
         self.root = Tk()
 
-        self.pen_button = Button(self.root, text='pen', command=self.use_pen)
+        self.pen_button = Button(self.image, text='stylo', command=self.use_pen, bg='#FA8072')
         self.pen_button.grid(row=0, column=0)
 
-        self.brush_button = Button(self.root, text='brush', command=self.use_brush)
-        self.brush_button.grid(row=0, column=1)
+        self.save_button = Button(self.image, text='sauvegarder', command=self.use_save, bg='#FA8072')
+        self.save_button.grid(row=0, column=1)
 
-        self.color_button = Button(self.root, text='color', command=self.choose_color)
+        self.color_button = Button(self.image, text='couleur', command=self.choose_color, bg='#FA8072')
         self.color_button.grid(row=0, column=2)
 
-        self.eraser_button = Button(self.root, text='eraser', command=self.use_eraser)
+        self.eraser_button = Button(self.image, text='gomme', command=self.use_eraser, bg='#FA8072')
         self.eraser_button.grid(row=0, column=3)
 
         self.choose_size_button = Scale(self.root, from_=1, to=10, orient=HORIZONTAL)
         self.choose_size_button.grid(row=0, column=4)
 
-        self.c = Canvas(self.root, bg='white', width=600, height=600)
-        self.c.grid(row=1, columnspan=5)
-
         self.setup()
-        self.root.mainloop()
+        self.image.mainloop()
 
     def setup(self):
         self.old_x = None
@@ -44,8 +40,8 @@ class Paint(object):
     def use_pen(self):
         self.activate_button(self.pen_button)
 
-    def use_brush(self):
-        self.activate_button(self.brush_button)
+    def use_save(self):
+        self.activate_button(self.save_button)
 
     def choose_color(self):
         self.eraser_on = False
@@ -76,3 +72,5 @@ class Paint(object):
 
 if __name__ == '__main__':
     Paint()
+
+# L'option sauvegarder est encore a faire elle permet d'écrire pour le moment
