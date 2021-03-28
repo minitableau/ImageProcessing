@@ -1,3 +1,5 @@
+#methode importante pour crée des image (ne sera pas dans le fichier final )
+
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
