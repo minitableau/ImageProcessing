@@ -46,6 +46,8 @@ class Paint(object):
 
     def use_save(self):
         self.activate_button(self.save_button)
+        self.mask = self.c.postscript(file="mask.ps", colormode='color')
+        # continué...
 
     def choose_color(self):
         self.eraser_on = False
@@ -64,9 +66,7 @@ class Paint(object):
         self.line_width = self.choose_size_button.get()
         paint_color = 'white' if self.eraser_on else self.color
         if self.old_x and self.old_y:
-            self.c.create_line(self.old_x, self.old_y, event.x, event.y,
-                               width=self.line_width, fill=paint_color,
-                               capstyle=ROUND, smooth=TRUE, splinesteps=36)
+            self.c.create_line(self.old_x, self.old_y, event.x, event.y,width=self.line_width, fill=paint_color,capstyle=ROUND, smooth=TRUE, splinesteps=36)
         self.old_x = event.x
         self.old_y = event.y
 
