@@ -1,80 +1,36 @@
 from tkinter import *
-from tkinter.colorchooser import askcolor
+from gomme.gui.create_mask import Paint
 
-
-class Paint(object):
-    DEFAULT_PEN_SIZE = 5.0
-    DEFAULT_COLOR = 'black'
-
+class fenetres():
     def __init__(self):
-        self.image = Tk()
-        self.image.config(bg='#CD5C5C')
+        self.f = Tk()
+        x,y=1800,900
+        self.f.geometry("{}x{}".format(x,y))
+        self.f.minsize(1080, 720)
+        Frame1 = Frame(self.f,bg='#41B6A0')
+        champ_label = Label(self.f, text="Bienvenue sur notre TIPE !",font=("Calibri Light",75),bg='#41B6A0',fg='#FF8333')
+        champ_label.pack(anchor='n')
+        self.f.config(bg='#41B6A0')
+        mask_button = Button(Frame1, text="Création du masque", command=self.test,bg='#33C1FF',font=("Calibri Light",25),relief='ridge',highlightbackground='red')
+        mask_button.grid(row=0,column=0,padx=100)
+        bouton2 = Button(Frame1, text="En cours de development", command=self.test, bg='#33C1FF', font=("Calibri Light", 25),relief='ridge')
+        bouton2.grid(row=0,column=1)
+        bouton3 = Button(Frame1, text="+Tard", command=self.test, bg='#33C1FF', font=("Calibri Light", 25),relief='ridge')
+        bouton3.grid(row=0,column=2,padx=100)
+        quit_button = Button(Frame1, text="Quitter", command=self.f.destroy, bg='#FF0000', font=("Calibri Light", 25),relief='ridge')
+        xtemp, ytemp = x - 200, y - 75
+        quit_button.grid(row=0,column=3)
+        Frame1.pack(expand='YES')
+        self.f.mainloop()
 
-        self.c = Canvas(self.image, bg='white', width=1700, height=800)
-        self.c.grid(row=1, columnspan=5)
+    def PagePrincipale(self):
+        Paint()
 
-        self.pen_button = Button(self.image, text='stylo', command=self.use_pen, bg='#FA8072')
-        self.pen_button.grid(row=0, column=0)
-
-        self.save_button = Button(self.image, text='sauvegarder', command=self.use_save, bg='#FA8072')
-        self.save_button.grid(row=0, column=1)
-
-        self.color_button = Button(self.image, text='couleur', command=self.choose_color, bg='#FA8072')
-        self.color_button.grid(row=0, column=2)
-
-        self.eraser_button = Button(self.image, text='gomme', command=self.use_eraser, bg='#FA8072')
-        self.eraser_button.grid(row=0, column=3)
-
-        self.choose_size_button = Scale(self.image, from_=1, to=30, orient=HORIZONTAL, bg='#FA8072')
-        self.choose_size_button.grid(row=0, column=4)
-
-        self.setup()
-        self.image.mainloop()
-
-    def setup(self):
-        self.old_x = None
-        self.old_y = None
-        self.line_width = self.choose_size_button.get()
-        self.color = self.DEFAULT_COLOR
-        self.eraser_on = False
-        self.active_button = self.pen_button
-        self.c.bind('<B1-Motion>', self.paint)
-        self.c.bind('<ButtonRelease-1>', self.reset)
-
-    def use_pen(self):
-        self.activate_button(self.pen_button)
-
-    def use_save(self):
-        self.activate_button(self.save_button)
-        self.mask = self.c.postscript(file="mask.ps", colormode='color')
-        # continué...
-
-    def choose_color(self):
-        self.eraser_on = False
-        self.color = askcolor(color=self.color)[1]
-
-    def use_eraser(self):
-        self.activate_button(self.eraser_button, eraser_mode=True)
-
-    def activate_button(self, some_button, eraser_mode=False):
-        self.active_button.config(relief=RAISED)
-        some_button.config(relief=SUNKEN)
-        self.active_button = some_button
-        self.eraser_on = eraser_mode
-
-    def paint(self, event):
-        self.line_width = self.choose_size_button.get()
-        paint_color = 'white' if self.eraser_on else self.color
-        if self.old_x and self.old_y:
-            self.c.create_line(self.old_x, self.old_y, event.x, event.y,width=self.line_width, fill=paint_color,capstyle=ROUND, smooth=TRUE, splinesteps=36)
-        self.old_x = event.x
-        self.old_y = event.y
-
-    def reset(self, event):
-        self.old_x, self.old_y = None, None
-
+    def test(self):
+        self.f.withdraw()
+        self.PagePrincipale()
 
 if __name__ == '__main__':
-    Paint()
+    start = fenetres()
 
-# L'option sauvegarder est encore a faire elle permet d'écrire pour le moment
+
