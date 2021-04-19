@@ -11,7 +11,7 @@ class Paint(object):
         self.image.config(bg='#CD5C5C')
 
         self.c = Canvas(self.image, bg='white', width=1700, height=800)
-        self.c.grid(row=1, columnspan=6)
+        self.c.grid(row=1, columnspan=5)
 
         self.pen_button = Button(self.image, text='stylo', command=self.use_pen, bg='#FA8072')
         self.pen_button.grid(row=0, column=0)

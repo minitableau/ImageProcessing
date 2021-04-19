@@ -1,4 +1,7 @@
+import tkinter
 from tkinter import *
+from tkinter import filedialog
+
 from gomme.gui.create_mask import Paint
 
 class fenetres():
@@ -13,7 +16,7 @@ class fenetres():
         self.f.config(bg='#41B6A0')
         mask_button = Button(Frame1, text="Création du masque", command=self.test,bg='#33C1FF',font=("Calibri Light",25),relief='ridge',highlightbackground='red')
         mask_button.grid(row=0,column=0,padx=100)
-        bouton2 = Button(Frame1, text="En cours de development", command=self.test, bg='#33C1FF', font=("Calibri Light", 25),relief='ridge')
+        bouton2 = Button(Frame1, text="Importer Image", command=self.OuvrirImage, bg='#33C1FF', font=("Calibri Light", 25),relief='ridge')
         bouton2.grid(row=0,column=1)
         bouton3 = Button(Frame1, text="+Tard", command=self.test, bg='#33C1FF', font=("Calibri Light", 25),relief='ridge')
         bouton3.grid(row=0,column=2,padx=100)
@@ -22,6 +25,10 @@ class fenetres():
         quit_button.grid(row=0,column=3)
         Frame1.pack(expand='YES')
         self.f.mainloop()
+
+    def OuvrirImage(self):
+        filename = tkinter.filedialog.askopenfilename(title="Ouvrir une image",filetypes=[('jpg files', '.jpg'), ('bmp files', '.bmp'),('all files', '.*')])
+
 
     def PagePrincipale(self):
         Paint()
