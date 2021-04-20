@@ -1,6 +1,8 @@
 from tkinter import *
 
 from gomme.gui.PartieImage import PartieImage
+from gomme.gui.PartieMasque import PartieMasque
+from gomme.gui.PartieRendu import PartieRendu
 
 
 class fenetre(Tk):
@@ -26,6 +28,7 @@ class fenetre(Tk):
         self.resizable(FALSE, FALSE)
 
         self.config(bg="#1E1E1E")
+        #self.config(bg="#FFFFFF")
 
         closeButton = Button(self, text="x", font=("Calibri", 22, "bold"), fg="#FF2010", bg="#1E1E1E", bd=0,
                              command=lambda: self.destroy())
@@ -39,6 +42,8 @@ class fenetre(Tk):
         titre.pack()
 
         self.zone_image = PartieImage(self)
+        self.zone_masque = PartieMasque(self)
+        self.zone_rendu = PartieRendu(self)
 
         self.mainloop()
 
