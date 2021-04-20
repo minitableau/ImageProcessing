@@ -1,7 +1,6 @@
 import sys
 
 import cv2
-from PIL import Image
 
 from gomme.filtres.masque import appliquer_masque
 
