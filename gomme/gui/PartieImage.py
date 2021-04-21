@@ -22,7 +22,7 @@ class PartieImage(Frame):
 
         self.pourcentage_scale = DoubleVar()
 
-        self.resize_slider = Scale(self.frame, from_=5, to=100, orient=HORIZONTAL, variable=self.pourcentage_scale,
+        self.resize_slider = Scale(self.frame, from_=10, to=100, orient=HORIZONTAL, variable=self.pourcentage_scale,
                                    length=300, fg="#D9D9D9", bg="#1E1E1E")
         self.resize_slider.pack_forget()
 
@@ -64,7 +64,15 @@ class PartieImage(Frame):
 
         slider_val = self.resize_slider.get()
 
+        (width, height) = self.recuperer_dimensions()
+
+        self.size_description["text"] = f"{width} x {height}"
+
+    def recuperer_dimensions(self):
+
+        slider_val = self.resize_slider.get()
+
         new_width = int(self.cache_image.width * (slider_val / 100))
         new_heigth = int(self.cache_image.height * (slider_val / 100))
 
-        self.size_description["text"] = f"{new_width} x {new_heigth}"
+        return new_width, new_heigth
