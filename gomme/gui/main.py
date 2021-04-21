@@ -9,6 +9,8 @@ class Paint():
         self.image = Tk()
         self.image.config(bg='#CD5C5C')
 
+        #
+
         self.c = Canvas(self.image, bg='white', width=1700, height=800)
         self.c.grid(row=1, columnspan=5)
 

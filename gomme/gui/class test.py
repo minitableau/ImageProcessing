@@ -24,7 +24,7 @@ class fenetre(Tk):
 
         self.geometry(f'{w}x{h}+{x}+{y}')
 
-        self.overrideredirect(1)
+        #self.overrideredirect(1)
         self.resizable(FALSE, FALSE)
 
         self.config(bg="#1E1E1E")
