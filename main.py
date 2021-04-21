@@ -16,7 +16,7 @@ chemin_image, chemin_masque, taille_cadre = (arg[1], arg[2], 3)
 image = cv2.imread(chemin_image, 1)
 masque = cv2.imread(chemin_masque, 0)
 
-# le deuxième argument permet de lire l'fenetre en noir et blanc (c'est un masque donc inutile de le lire en couleur),
+# le deuxième argument permet de lire l'fenetre en noir et blanc (canvas'est un masque donc inutile de le lire en couleur),
 # cela permet aussi donc de n'avoir que un entier dans le programme qui applique le masque
 
 if image is None or masque is None:

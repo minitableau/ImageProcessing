@@ -28,7 +28,6 @@ class fenetre(Tk):
         self.resizable(FALSE, FALSE)
 
         self.config(bg="#1E1E1E")
-        #self.config(bg="#FFFFFF")
 
         closeButton = Button(self, text="x", font=("Calibri", 22, "bold"), fg="#FF2010", bg="#1E1E1E", bd=0,
                              command=lambda: self.destroy())
