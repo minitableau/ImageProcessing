@@ -12,6 +12,6 @@ class PartieRendu(Frame):
                              bg="#1E1E1E", borderwidth=10)
 
         self.label.pack()
-        self.button.pack(ipadx=20, pady=40)
+        self.button.pack(ipadx=20, pady=20)
 
         zone_rendu.place(x=900, y=220)

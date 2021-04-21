@@ -12,6 +12,6 @@ class PartieMasque(Frame):
                              bg="#1E1E1E", borderwidth=10)
 
         self.label.pack()
-        self.button.pack(ipadx=50, pady=40)
+        self.button.pack(ipadx=50, pady=20)
 
         zone_masque.place(x=525, y=220)
