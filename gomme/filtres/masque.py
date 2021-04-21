@@ -4,7 +4,7 @@ from numpy.core.multiarray import ndarray
 
 def appliquer_masque(image: ndarray, masque: ndarray):
     image_copie: ndarray = np.copy(image)
-    tableau_masque: ndarray = np.copy(masque)  # Transformation de l'image en tableau
+    tableau_masque: ndarray = np.copy(masque)  # Transformation de l'fenetre en tableau
 
     lignes, colonnes, channels = image_copie.shape
 

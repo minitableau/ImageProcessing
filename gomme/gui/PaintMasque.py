@@ -1,36 +1,37 @@
 ﻿from tkinter import *
 from tkinter.colorchooser import askcolor
 
-class Paint():
-    DEFAULT_PEN_SIZE = 5.0
+
+class PaintMasque:
+    DEFAULT_PEN_SIZE = 20.0
     DEFAULT_COLOR = 'black'
 
-    def __init__(self):
-        self.image = Tk()
-        self.image.config(bg='#CD5C5C')
+    def __init__(self, zone_masque):
+        self.fenetre = Tk()
+        self.fenetre.config(bg='#CD5C5C')
 
-        #
+        background = Label(self.fenetre, image=zone_masque.parent.zone)
 
-        self.c = Canvas(self.image, bg='white', width=1700, height=800)
+        self.c = Canvas(self.fenetre, bg='white', width=1700, height=800)
         self.c.grid(row=1, columnspan=5)
 
-        self.pen_button = Button(self.image, text='stylo', command=self.use_pen, bg='#FA8072')
+        self.pen_button = Button(self.fenetre, text='stylo', command=self.use_pen, bg='#FA8072')
         self.pen_button.grid(row=0, column=0)
 
-        self.save_button = Button(self.image, text='sauvegarder', command=self.use_save, bg='#FA8072')
+        self.save_button = Button(self.fenetre, text='sauvegarder', command=self.use_save, bg='#FA8072')
         self.save_button.grid(row=0, column=1)
 
-        self.color_button = Button(self.image, text='couleur', command=self.choose_color, bg='#FA8072')
+        self.color_button = Button(self.fenetre, text='couleur', command=self.choose_color, bg='#FA8072')
         self.color_button.grid(row=0, column=2)
 
-        self.eraser_button = Button(self.image, text='gomme', command=self.use_eraser, bg='#FA8072')
+        self.eraser_button = Button(self.fenetre, text='gomme', command=self.use_eraser, bg='#FA8072')
         self.eraser_button.grid(row=0, column=3)
 
-        self.choose_size_button = Scale(self.image, from_=1, to=30, orient=HORIZONTAL, bg='#FA8072')
+        self.choose_size_button = Scale(self.fenetre, from_=1, to=30, orient=HORIZONTAL, bg='#FA8072')
         self.choose_size_button.grid(row=0, column=4)
 
         self.setup()
-        self.image.mainloop()
+        self.fenetre.mainloop()
 
     def setup(self):
         self.old_x = None
