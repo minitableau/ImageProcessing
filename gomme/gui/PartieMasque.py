@@ -21,7 +21,6 @@ class PartieMasque(Frame):
         zone_masque.place(x=525, y=220)
 
     def dessiner_masque(self):
-
         if not self.parent.zone_image.contient_une_image():
             raise Exception("L'image n'a pas encore été chargée !!!!!!!!!")
 
