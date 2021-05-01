@@ -22,6 +22,6 @@ class PartieMasque(Frame):
 
     def dessiner_masque(self):
         if not self.parent.zone_image.contient_une_image():
-            raise Exception("L'image n'a pas encore été chargée !!!!!!!!!")
+            raise Exception("L'image n'a pas encore été chargée !")
 
         PaintMasque(self)

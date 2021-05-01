@@ -46,7 +46,7 @@ class PartieImage(Frame):
 
         self.label["fg"] = "#00A6A5"
         self.label.configure(fg="#00A6A5")
-        self.pourcentage_scale.set(100)
+        self.pourcentage_scale.set(100)  # de base 100% on peut alors réduire
 
         self.size_description["text"] = f"{self.cache_image.width} x {self.cache_image.height}"
         self.resize_slider.pack()
@@ -61,8 +61,6 @@ class PartieImage(Frame):
         return True
 
     def maj_dimensions_image(self, event=None):
-
-        slider_val = self.resize_slider.get()
 
         (width, height) = self.recuperer_dimensions()
 
