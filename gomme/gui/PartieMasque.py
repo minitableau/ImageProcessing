@@ -1,5 +1,8 @@
 from tkinter import *
 
+import PIL
+from PIL import ImageTk
+
 from gomme.gui.PaintMasque import PaintMasque
 
 
@@ -26,3 +29,15 @@ class PartieMasque(Frame):
             raise Exception("L'image n'a pas encore été chargée !")
 
         PaintMasque(self)
+        self.parent.zone_image.resize_slider.pack_forget()
+
+    def afficher_masque(self):
+        self.masque: PIL.Image = PIL.Image.open("masque.jpg")
+
+        tk_image = ImageTk.PhotoImage(self.masque.resize((300, 200)))
+
+        self.button.image = tk_image
+        self.button.configure(image=tk_image, height=200, width=200)
+
+        self.label["fg"] = "#00A6A5"
+        self.label.update()

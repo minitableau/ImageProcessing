@@ -45,7 +45,7 @@ class PartieImage(Frame):
         self.button.configure(image=tk_image, height=200, width=200)
 
         self.label["fg"] = "#00A6A5"
-        self.label.configure(fg="#00A6A5")
+        self.label.update()
         self.pourcentage_scale.set(100)  # de base 100% on peut alors réduire
 
         self.size_description["text"] = f"{self.cache_image.width} x {self.cache_image.height}"

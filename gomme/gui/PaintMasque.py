@@ -1,5 +1,6 @@
 from tkinter import *
 
+import cv2
 from PIL import ImageTk, ImageGrab
 
 
@@ -61,25 +62,18 @@ class PaintMasque:
 
     def close_paint(self):
         self.canvas.delete(self.image_fond)
-
         self.canvas.update()
 
-        canvas = self._canvas()
-        grabcanvas = ImageGrab.grab(bbox=canvas)
-        grabcanvas.show()
+        bbox = self.recuperer_canvas_entourage()
+        grabcanvas = ImageGrab.grab(bbox=bbox)
 
-        grabcanvas.save("out.jpg")
+        grabcanvas.save("masque.jpg")
 
+        self.zone_parent.masque = cv2.imread("masque.jpg")
+        self.zone_parent.afficher_masque()
         self.fenetre.destroy()
 
-    def _canvas(self):
-        print('  def _canvas(self):')
-        print('self.cv.winfo_rootx() = ', self.canvas.winfo_rootx())
-        print('self.cv.winfo_rooty() = ', self.canvas.winfo_rooty())
-        print('self.cv.winfo_x() =', self.canvas.winfo_x())
-        print('self.cv.winfo_y() =', self.canvas.winfo_y())
-        print('self.cv.winfo_width() =', self.canvas.winfo_width())
-        print('self.cv.winfo_height() =', self.canvas.winfo_height())
+    def recuperer_canvas_entourage(self):
         x = self.canvas.winfo_rootx() + self.canvas.winfo_x()
         y = self.canvas.winfo_rooty() + self.canvas.winfo_y()
         x1 = x + self.canvas.winfo_width()
@@ -87,3 +81,4 @@ class PaintMasque:
         box = (x, y, x1, y1)
         print('box = ', box)
         return box
+
