@@ -1,6 +1,6 @@
 from tkinter import *
 
-from PIL import ImageTk
+from PIL import ImageTk, ImageGrab
 
 
 class PaintMasque:
@@ -8,6 +8,8 @@ class PaintMasque:
     def __init__(self, zone_masque):
         # TopLevel = Sous fenêtre ayant comme parent la fenêtre principale créée par Tk()
         self.fenetre = Toplevel(zone_masque.parent)
+
+        self.fenetre.protocol("WM_DELETE_WINDOW", self.close_paint)
 
         self.zone_parent = zone_masque
         zone_image = self.zone_parent.parent.zone_image
@@ -23,10 +25,10 @@ class PaintMasque:
         x = int(ws / 2 - self.w / 2)
         y = int(hs / 2 - self.h / 2)
 
-        self.fenetre.geometry(f'{self.w}x{self.h}+{x}+{y}')
+        self.fenetre.geometry(f'{self.w}x{self.h}')  # +{x}+{y}')
 
         self.canvas = Canvas(self.fenetre, width=self.w, height=self.h)
-        self.canvas.create_image(0, 0, anchor="nw", image=self.image)
+        self.image_fond = self.canvas.create_image(0, 0, anchor="nw", image=self.image)
         self.setup()
 
         self.canvas.pack()
@@ -56,3 +58,32 @@ class PaintMasque:
     def erase(self, event):
         self.canvas.delete("all")
         self.canvas.create_image(0, 0, anchor="nw", image=self.image)
+
+    def close_paint(self):
+        self.canvas.delete(self.image_fond)
+
+        self.canvas.update()
+
+        canvas = self._canvas()
+        grabcanvas = ImageGrab.grab(bbox=canvas)
+        grabcanvas.show()
+
+        grabcanvas.save("out.jpg")
+
+        self.fenetre.destroy()
+
+    def _canvas(self):
+        print('  def _canvas(self):')
+        print('self.cv.winfo_rootx() = ', self.canvas.winfo_rootx())
+        print('self.cv.winfo_rooty() = ', self.canvas.winfo_rooty())
+        print('self.cv.winfo_x() =', self.canvas.winfo_x())
+        print('self.cv.winfo_y() =', self.canvas.winfo_y())
+        print('self.cv.winfo_width() =', self.canvas.winfo_width())
+        print('self.cv.winfo_height() =', self.canvas.winfo_height())
+        x = self.canvas.winfo_rootx() + self.canvas.winfo_x()
+        y = self.canvas.winfo_rooty() + self.canvas.winfo_y()
+        x1 = x + self.canvas.winfo_width()
+        y1 = y + self.canvas.winfo_height()
+        box = (x, y, x1, y1)
+        print('box = ', box)
+        return box

@@ -18,6 +18,7 @@ class PartieMasque(Frame):
         self.label.pack()
         self.button.pack(ipadx=50, pady=20)
 
+        self.masque = None
         zone_masque.place(x=525, y=220)
 
     def dessiner_masque(self):
