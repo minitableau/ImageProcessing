@@ -5,6 +5,9 @@ from PIL import ImageTk, ImageGrab
 
 from gomme.utils.zoom_ratio import get_screen_scale_rate
 
+# Problème il faut faire attention que l' image soit plus petite que la resolution de notre écran (resize avec le
+# slider si ce n' est pas le cas)
+
 
 class PaintMasque:
 

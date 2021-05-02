@@ -1,5 +1,6 @@
 # On crée une zone autour du point voulu. On va crée un carré pour cela on calcul les angles inférieur gauche et
 # supérieur droit on pourra alors facilement en faire un carré
+
 def Patch(image, taille_cadre, coordo_point):
     px, py = coordo_point
     lignes, colonnes, channel = image.shape

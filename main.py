@@ -45,19 +45,19 @@ image_masque_copie = np.copy(image_masque)
 
 result = np.ndarray(shape=image_masque.shape)
 
-# classe implémentait par numpy crée une matrice (mettre shape car deuxième argument de la fonction python) xsize=ligne
+# methode de numpy crée une matrice (mettre shape car deuxième argument de la fonction python) xsize=ligne
 # ,ysize=colonne,channel= cette matrice et remplie de 0
 
 data = np.ndarray(shape=image_masque.shape[:2])
 
-# classe implémentait par numpy crée une matrice (mettre shape car deuxième argument de la fonction python) xsize=ligne
+# methode de par numpy crée une matrice (mettre shape car deuxième argument de la fonction python) xsize=ligne
 # ,ysize=colonne  cette matrice et remplie de 0
 
 
 Vrai_Faux = True  # pour le while
 
 print("Démarrage de la reconstitution")
-# print("Algorithme en fonctionnement") création du compteur de manière a montrer que ca avance
+# print("Démarrage de la reconstitution") création du compteur de manière a montrer que ca avance
 
 etape = 0  # initialisation de l' avancement
 

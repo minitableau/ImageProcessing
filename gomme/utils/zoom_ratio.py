@@ -3,6 +3,8 @@ import win32con
 import win32gui
 import win32print
 
+# Ayant remarquer que cela ne fonctionner pas sur mon ordi portable je me suis demandé d' ou provenait le problème
+# J' ai compris que c' était un problème avec le zoom de windows
 
 def recuperer_resolution_reelle():
     hDC = win32gui.GetDC(0)

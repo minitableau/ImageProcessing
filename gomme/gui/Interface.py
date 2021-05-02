@@ -13,7 +13,7 @@ class Interface(Tk):
 
         w, h = 1280, 720
 
-        # Récupération des dimensions de l'écran
+        # Récupération des dimensions de l' écran
         ws = self.winfo_screenwidth()
         hs = self.winfo_screenheight()
 
