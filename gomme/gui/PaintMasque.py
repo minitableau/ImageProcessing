@@ -10,6 +10,8 @@ class PaintMasque:
         # TopLevel = Sous fenêtre ayant comme parent la fenêtre principale créée par Tk()
         self.fenetre = Toplevel(zone_masque.parent)
 
+        self.fenetre.resizable(FALSE, FALSE)
+
         self.fenetre.protocol("WM_DELETE_WINDOW", self.close_paint)
 
         self.zone_parent = zone_masque
@@ -26,7 +28,7 @@ class PaintMasque:
         x = int(ws / 2 - self.w / 2)
         y = int(hs / 2 - self.h / 2)
 
-        self.fenetre.geometry(f'{self.w}x{self.h}')  # +{x}+{y}')
+        self.fenetre.geometry(f'{self.w}x{self.h}+{x}+{y}')
 
         self.canvas = Canvas(self.fenetre, width=self.w, height=self.h)
         self.image_fond = self.canvas.create_image(0, 0, anchor="nw", image=self.image)

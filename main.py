@@ -56,7 +56,7 @@ data = np.ndarray(shape=image_masque.shape[:2])
 
 Vrai_Faux = True  # pour le while
 
-print("Démmarage de la reconstitution")
+print("Démarrage de la reconstitution")
 # print("Algorithme en fonctionnement") création du compteur de manière a montrer que ca avance
 
 etape = 0  # initialisation de l' avancement
