@@ -5,7 +5,7 @@ from gomme.gui.PartieMasque import PartieMasque
 from gomme.gui.PartieRendu import PartieRendu
 
 
-class fenetre(Tk):
+class Interface(Tk):
     def __init__(self, parent):
         Tk.__init__(self, parent)
 
@@ -47,4 +47,4 @@ class fenetre(Tk):
 
 
 if __name__ == '__main__':
-    start = fenetre(None)
+    start = Interface(None)

@@ -3,6 +3,8 @@ from tkinter import *
 import cv2
 from PIL import ImageTk, ImageGrab
 
+from gomme.utils.zoom_ratio import get_screen_scale_rate
+
 
 class PaintMasque:
 
@@ -76,11 +78,12 @@ class PaintMasque:
         self.fenetre.destroy()
 
     def recuperer_canvas_entourage(self):
-        x = self.canvas.winfo_rootx() + self.canvas.winfo_x()
-        y = self.canvas.winfo_rooty() + self.canvas.winfo_y()
-        x1 = x + self.canvas.winfo_width()
-        y1 = y + self.canvas.winfo_height()
+
+        ratio = get_screen_scale_rate()
+        x = self.canvas.winfo_rootx() * ratio + self.canvas.winfo_x() * ratio
+        y = self.canvas.winfo_rooty() * ratio + self.canvas.winfo_y() * ratio
+        x1 = x + self.canvas.winfo_width() * ratio
+        y1 = y + self.canvas.winfo_height() * ratio
         box = (x, y, x1, y1)
         print('box = ', box)
         return box
-

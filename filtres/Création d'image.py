@@ -1,4 +1,4 @@
-#methode importante pour crée des image (ne sera pas dans le fichier final )
+# methode importante pour crée des image (ne sera pas dans le fichier final )
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,7 +7,7 @@ from PIL import Image
 image = np.zeros((100, 200, 3), dtype=np.uint8)
 plt.imshow(image)
 plt.show()
-# permet de crée une fenetre toute noir
+# permet de crée une fenêtre toute noir
 
 imagepil = Image.open("../resources/images/plage_arbre.jpg")
 im = np.array(imagepil)
@@ -23,7 +23,7 @@ def lignes_colonnes(tableau: list) -> list:
 
 a = lignes_colonnes(im)[0]
 b = lignes_colonnes(im)[1]
-print("L'fenetre possède", a - 1, "lignes et", b - 1, "colones")
+print("La fenêtre possède", a - 1, "lignes et", b - 1, "colones")
 
 print(im[100, 120])
 print(im[200, 250])  # pixel en bas a droite blanc
@@ -35,5 +35,5 @@ plt.show()
 # permet de mettre le pixel en bas a gauche en bleu
 
 
-imagepil = Image.fromarray(im)  # Transformation du tableau en fenetre PIL
-imagepil.save("../../test/Imagemodif.jpg")  # sauvegarde de l'fenetre modifié
+imagepil = Image.fromarray(im)  # Transformation du tableau en fenêtre PIL
+imagepil.save("../../test/Imagemodif.jpg")  # sauvegarde de la fenêtre modifié
