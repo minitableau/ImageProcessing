@@ -70,7 +70,12 @@ class PaintMasque:
     def close_paint(self):
         self.canvas.delete(self.image_fond)
         self.canvas.update()
-
+        self.canvas.update()
+        self.canvas.update()
+        self.canvas.update()
+        # Faire plusieurs update car sinon le screenshot est parfois pris trop rapidement et le canvas n' est pas
+        # supprimer
+        
         bbox = self.recuperer_canvas_entourage()
         grabcanvas = ImageGrab.grab(bbox=bbox)
 

@@ -34,3 +34,6 @@ def zone_de_remplissage(masque, source):
                 else:
                     normale += [(dy, -dx)]
     return dOmega, normale
+
+# ajouter un vecteur associer a chauque points
+

@@ -85,13 +85,11 @@ while Vrai_Faux:
     dOmega, normale = zone_de_remplissage.zone_de_remplissage(masque, source)
     # source correspond à la fiabilite (définie lors de l' application du masque)
 
-    # ordre ( nous donnera pour savoir ou recommencer fiabilite, data) aura besoin de (image_masque_copie,
-    # taille_cadre, masque, dOmega, normale, data, gradientX,gradientY, fiabilite)
+    # ordre ( nous donnera pour savoir ou recommencer fiabilite)
 
     # Calcul du patch
 
     # Mise a jour des valeurs
-
 
     Vrai_Faux = False
     for i in range(lignes):
