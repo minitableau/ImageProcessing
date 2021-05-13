@@ -111,3 +111,4 @@ cv2.waitKey()  # permet d' ouvrir la fenêtre
 
 
 # Commande de lancement : py main.py ./resources/images/plage_parasol.jpg ./resources/masques/masque_parasol.jpg
+#

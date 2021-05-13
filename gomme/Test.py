@@ -110,3 +110,4 @@ domega, normale = zone_de_remplissage(mask, source)
 
 a=5+3
 # ajouter un vecteur associer a chauque points
+#
