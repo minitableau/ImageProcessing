@@ -52,15 +52,15 @@ lap = np.array([[1., 1., 1.], [1., -8., 1.], [1., 1., 1.]])
 kerx = np.array([[-1., 0., 1.], [-2., 0., 2.], [-1., 0., 1.]])
 kery = np.array([[1., 2., 1.], [0., 0., 0.], [-1., -2., -1.]])
 
-niveau_de_gris = cv2.cvtColor(image_masque, cv2.COLOR_RGB2GRAY)
-GradientX = cv2.convertScaleAbs(cv2.Scharr(niveau_de_gris, cv2.CV_32F, 1, 0))
-GradientY = cv2.convertScaleAbs(cv2.Scharr(niveau_de_gris, cv2.CV_32F, 0, 1))
-
 # GradientX = cv2.filter2D(source, cv2.CV_32F, kerx) #Utilisé dans zone de remplissage.
 # GradientY = cv2.filter2D(source, cv2.CV_32F, kery)
 
-cv2.imshow('resultat x', GradientX)
-cv2.imshow('resultat y', GradientY)
+# cv2.imshow('resultat x', GradientX)
+# cv2.imshow('resultat y', GradientY)
+
+niveau_de_gris = cv2.cvtColor(image_masque, cv2.COLOR_RGB2GRAY)
+GradientX = cv2.convertScaleAbs(cv2.Scharr(niveau_de_gris, cv2.CV_32F, 1, 0))
+GradientY = cv2.convertScaleAbs(cv2.Scharr(niveau_de_gris, cv2.CV_32F, 0, 1))
 
 lignes, colonnes = source.shape
 
@@ -76,3 +76,37 @@ cv2.imshow('resultat x 2', GradientX)
 cv2.imshow('resultat y 2', GradientY)
 
 cv2.waitKey(0)
+
+
+
+import cv2
+import numpy as np
+
+Lap = np.array([[1., 1., 1.], [1., -8., 1.], [1., 1., 1.]])
+kerx = np.array([[-1., 0., 1.], [-2., 0., 2.], [-1., 0., 1.]])
+kery = np.array([[1., 2., 1.], [0., 0., 0.], [-1., -2., -1.]])
+
+def zone_de_remplissage(masque, source):
+    lap = cv2.filter2D(masque, cv2.CV_32F, Lap)
+    lignes, colonnes = lap.shape
+    GradientX = cv2.filter2D(source, cv2.CV_32F, kerx)
+    GradientY = cv2.filter2D(source, cv2.CV_32F, kery)
+    dOmega = []
+    normale = []
+    for i in range(lignes):
+        for j in range(colonnes):
+            if lap[i, j] > 0:
+                dOmega += [(j, i)] # inversion des indices pour avoir les coordonnés(colonnes=x et ligne = y)
+                dx = GradientX[i, j]
+                dy = GradientY[i, j]
+                N = (dy ** 2 + dx ** 2) ** 0.5
+                if N != 0:
+                    normale += [(dy / N, -dx / N)]
+                else:
+                    normale += [(dy, -dx)]
+    return dOmega, normale
+
+domega, normale = zone_de_remplissage(mask, source)
+
+a=5+3
+# ajouter un vecteur associer a chauque points

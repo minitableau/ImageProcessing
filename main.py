@@ -76,11 +76,8 @@ while Vrai_Faux:
         for j in range(colonnes):  # les colonnes
             if masque[i][j] == 1:
                 # si cela est égal a 1 cad les endroit on ne met pas de masque (les endroit blanc sur le masque)
-
                 gradientX[i][j] = 0
                 gradientY[i][j] = 0
-
-    gradientX, gradientY = gradientX / 255, gradientY / 255
 
     dOmega, normale = zone_de_remplissage.zone_de_remplissage(masque, source)
     # source correspond à la fiabilite (définie lors de l' application du masque)
