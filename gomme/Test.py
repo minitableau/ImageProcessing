@@ -77,14 +77,13 @@ cv2.imshow('resultat y 2', GradientY)
 
 cv2.waitKey(0)
 
-
-
 import cv2
 import numpy as np
 
 Lap = np.array([[1., 1., 1.], [1., -8., 1.], [1., 1., 1.]])
 kerx = np.array([[-1., 0., 1.], [-2., 0., 2.], [-1., 0., 1.]])
 kery = np.array([[1., 2., 1.], [0., 0., 0.], [-1., -2., -1.]])
+
 
 def zone_de_remplissage(masque, source):
     lap = cv2.filter2D(masque, cv2.CV_32F, Lap)
@@ -96,7 +95,7 @@ def zone_de_remplissage(masque, source):
     for i in range(lignes):
         for j in range(colonnes):
             if lap[i, j] > 0:
-                dOmega += [(j, i)] # inversion des indices pour avoir les coordonnés(colonnes=x et ligne = y)
+                dOmega += [(j, i)]  # inversion des indices pour avoir les coordonnés(colonnes=x et ligne = y)
                 dx = GradientX[i, j]
                 dy = GradientY[i, j]
                 N = (dy ** 2 + dx ** 2) ** 0.5
@@ -106,8 +105,9 @@ def zone_de_remplissage(masque, source):
                     normale += [(dy, -dx)]
     return dOmega, normale
 
+
 domega, normale = zone_de_remplissage(mask, source)
 
-a=5+3
+a = 5 + 3
 # ajouter un vecteur associer a chauque points
 #

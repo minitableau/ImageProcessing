@@ -1,5 +1,6 @@
 from gomme.utils.patch import Patch
 
+
 def calculConfiance(fiabilite, image_masque_copie, taille_cadre, tableau_masque, coordonnees_contours):
     for k in range(len(coordonnees_contours)):
         px, py = coordonnees_contours[k]

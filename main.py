@@ -3,11 +3,11 @@ import sys
 import cv2
 import numpy as np
 
-from gomme.Test import zone_de_remplissage
 from gomme.calcul_meilleur_patch import calculPatch
 from gomme.filtres.masque import appliquer_masque
 from gomme.mise_a_jour import update
 from gomme.ordre import calculPriority
+from gomme.zone_de_remplissage import zone_de_remplissage
 
 arguments = sys.argv
 
@@ -58,30 +58,29 @@ while Vrai_Faux:
     etape += 1  # incrémente pour le prochain passage
     lignes, colonnes = source.shape
 
-    image_noir_et_blanc = cv2.cvtColor(image_masque_copie, cv2.COLOR_RGB2GRAY)
-    # permet de convertir l' image (image_masque_copie) en couleur en noir et blanc
-
-    gradientX = cv2.convertScaleAbs(cv2.Scharr(image_noir_et_blanc, cv2.CV_32F, 1, 0))
-    gradientY = cv2.convertScaleAbs(cv2.Scharr(image_noir_et_blanc, cv2.CV_32F, 0, 1))
-
-    for i in range(lignes):  # on parcours la copie de source : les lignes
-        for j in range(colonnes):  # les colonnes
-            if tableau_masque[i][j] == 1:
-                # si cela est égal a 1 cad les endroit on ne met pas de masque (les endroit blanc sur le masque)
-
-                gradientX[i][j] = 0
-                gradientY[i][j] = 0
+    # image_noir_et_blanc = cv2.cvtColor(image_masque_copie, cv2.COLOR_RGB2GRAY)
+    # # permet de convertir l' image (image_masque_copie) en couleur en noir et blanc
+    #
+    # gradientX = cv2.convertScaleAbs(cv2.Scharr(image_noir_et_blanc, cv2.CV_32F, 1, 0))
+    # gradientY = cv2.convertScaleAbs(cv2.Scharr(image_noir_et_blanc, cv2.CV_32F, 0, 1))
+    #
+    # for i in range(lignes):  # on parcours la copie de source : les lignes
+    #     for j in range(colonnes):  # les colonnes
+    #         if tableau_masque[i][j] == 0:
+    #             gradientX[i][j] = 0
+    #             gradientY[i][j] = 0
 
     coordonnees_contours = zone_de_remplissage(tableau_masque)
 
     confiance, index = calculPriority(image_masque_copie, taille_cadre, tableau_masque, coordonnees_contours,
-                                            fiabilite)
+                                      fiabilite)
 
     list, pp = calculPatch(coordonnees_contours, index, image_masque_copie, original,
-                                                 tableau_masque, taille_cadre)
+                           tableau_masque, taille_cadre)
 
-    im, fiabilite, source, tableau_masque = update(image_masque_copie, fiabilite, source, tableau_masque,
-                                                               coordonnees_contours, pp, list, index, taille_cadre)
+    image_masque_copie, fiabilite, source, tableau_masque = update(image_masque_copie, fiabilite, source,
+                                                                   tableau_masque, coordonnees_contours, pp, list,
+                                                                   index, taille_cadre)
 
     Vrai_Faux = False
     for i in range(lignes):
@@ -91,11 +90,6 @@ while Vrai_Faux:
 
     # on enregistre a chaque fois pour voir l' avancée
     cv2.imwrite(chemin_image[:-4] + "_résultat.jpg", image_masque_copie)
-
-plage_parasol_noir = appliquer_masque(image, masque)
-
-cv2.imshow('Image : Plage parasol noir', plage_parasol_noir)
-cv2.waitKey()  # permet d' ouvrir la fenêtre
 
 # cv2.imwrite(("./resources/resultats/Plage_arbre_noir.jpg"),plage_parasol_noir)
 # permet de sauvegarder l' image dans le dossier résultats

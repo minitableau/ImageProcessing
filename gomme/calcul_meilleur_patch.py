@@ -1,6 +1,6 @@
-from gomme.utils.patch import Patch
-
 import sys
+
+from gomme.utils.patch import Patch
 
 
 def patch_complet(x, y, xsize, ysize, original):
@@ -62,6 +62,3 @@ def calculPatch(coordonnees_contours, cibleIndex, image_masque_copie, original, 
                 mini = ssd
                 pointPatch = (x, y)
     return (ciblem, pointPatch)
-
-
-
