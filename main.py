@@ -71,12 +71,14 @@ while Vrai_Faux:
 
     coordonnees_contours = zone_de_remplissage.zone_de_remplissage(tableau_masque)
 
-    confiance, index = ordre.calculPriority(image_masque_copie, taille_cadre, tableau_masque, coordonnees_contours, fiabilite)
+    confiance, index = ordre.calculPriority(image_masque_copie, taille_cadre, tableau_masque, coordonnees_contours,
+                                            fiabilite)
 
-    list, pp = calcul_meilleur_patch.calculPatch(coordonnees_contours, index, image_masque_copie, original, tableau_masque, taille_cadre)
+    list, pp = calcul_meilleur_patch.calculPatch(coordonnees_contours, index, image_masque_copie, original,
+                                                 tableau_masque, taille_cadre)
 
-    im, confiance, source, masque = mise_a_jour.update(image_masque_copie, confiance, source, tableau_masque, coordonnees_contours, pp, list,
-                                                       index, taille_cadre)
+    im, fiabilite, source, tableau_masque = mise_a_jour.update(image_masque_copie, fiabilite, source, tableau_masque,
+                                                               coordonnees_contours, pp, list, index, taille_cadre)
 
     Vrai_Faux = False
     for i in range(lignes):

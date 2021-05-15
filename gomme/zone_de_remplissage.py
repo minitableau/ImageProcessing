@@ -11,8 +11,8 @@ noyau_lap = np.array([[1, 1, 1], [1, -8, 1], [1, 1, 1]])
 
 # Recherche de la zone de remplissage à partir des kernels
 
-def zone_de_remplissage(masque):
-    contours = cv2.filter2D(masque, cv2.CV_32F, noyau_lap)
+def zone_de_remplissage(tableau_masque):
+    contours = cv2.filter2D(tableau_masque, cv2.CV_32F, noyau_lap)
     lignes, colonnes = contours.shape
     coordonnees_contours = []
     for i in range(lignes):
