@@ -3,17 +3,20 @@ import sys
 import cv2
 import numpy as np
 
-from gomme import zone_de_remplissage
+from gomme.Test import zone_de_remplissage
+from gomme.calcul_meilleur_patch import calculPatch
 from gomme.filtres.masque import appliquer_masque
+from gomme.mise_a_jour import update
+from gomme.ordre import calculPriority
 
-arg = sys.argv
+arguments = sys.argv
 
-if len(arg) != 3:
+if len(arguments) != 3:
     print("Lancement du programme : py main.py chemin_image chemin_masque")
     # ./resources/images/plage_arbre.jpg ./resources/masques/masque_arbre.jpg
     exit()
 
-chemin_image, chemin_masque, taille_cadre = (arg[1], arg[2], 3)
+chemin_image, chemin_masque, taille_cadre = (arguments[1], arguments[2], 3)
 
 image = cv2.imread(chemin_image, 1)
 masque = cv2.imread(chemin_masque, 0)
@@ -27,32 +30,21 @@ if image is None or masque is None:
         "dossier source du projet)")
     exit()
 
-x_image, y_image, channels = image.shape
-x_masque, y_masque = masque.shape
+lignes_image, colonnes_image, channels = image.shape
+lignes_masque, colonnes_masque = masque.shape
 
-if x_image != x_masque or y_image != y_masque:
+if lignes_image != lignes_masque or colonnes_image != colonnes_masque:
     print("La taille de l'image et la taille du masque sont différentes")
     exit()  # permet de sortir du programme
 
-image_masque, source, original, omega = appliquer_masque(image, masque)
+image_avec_masque, tableau_masque, fiabilite, source, original = appliquer_masque(image, masque)
 # source et original sont deux listes identiques copie de la liste fiabilite
 
-cv2.imwrite(chemin_image[:-4] + "_avec_masque.png", image_masque)
+cv2.imwrite(chemin_image[:-4] + "_avec_masque.png", image_avec_masque)
 # Permet d' avoir le meme chemin d' accès avec un nom explicite (on en incruste _avec_masque avant le .png)
 
-image_masque_copie = np.copy(image_masque)
+image_masque_copie = np.copy(image_avec_masque)
 # on crée une copie de l' image avec les pixel mis en blanc la ou il y a le masque
-
-result = np.ndarray(shape=image_masque.shape)
-
-# methode de numpy crée une matrice (mettre shape car deuxième argument de la fonction python) xsize=ligne
-# ,ysize=colonne,channel= cette matrice et remplie de 0
-
-data = np.ndarray(shape=image_masque.shape[:2])
-
-# methode de par numpy crée une matrice (mettre shape car deuxième argument de la fonction python) xsize=ligne
-# ,ysize=colonne  cette matrice et remplie de 0
-
 
 Vrai_Faux = True  # pour le while
 
@@ -66,27 +58,30 @@ while Vrai_Faux:
     etape += 1  # incrémente pour le prochain passage
     lignes, colonnes = source.shape
 
-    niveau_de_gris = cv2.cvtColor(image_masque_copie, cv2.COLOR_RGB2GRAY)
+    image_noir_et_blanc = cv2.cvtColor(image_masque_copie, cv2.COLOR_RGB2GRAY)
     # permet de convertir l' image (image_masque_copie) en couleur en noir et blanc
 
-    gradientX = cv2.convertScaleAbs(cv2.Scharr(niveau_de_gris, cv2.CV_32F, 1, 0))
-    gradientY = cv2.convertScaleAbs(cv2.Scharr(niveau_de_gris, cv2.CV_32F, 0, 1))
+    gradientX = cv2.convertScaleAbs(cv2.Scharr(image_noir_et_blanc, cv2.CV_32F, 1, 0))
+    gradientY = cv2.convertScaleAbs(cv2.Scharr(image_noir_et_blanc, cv2.CV_32F, 0, 1))
 
     for i in range(lignes):  # on parcours la copie de source : les lignes
         for j in range(colonnes):  # les colonnes
-            if masque[i][j] == 1:
+            if tableau_masque[i][j] == 1:
                 # si cela est égal a 1 cad les endroit on ne met pas de masque (les endroit blanc sur le masque)
+
                 gradientX[i][j] = 0
                 gradientY[i][j] = 0
 
-    dOmega, normale = zone_de_remplissage.zone_de_remplissage(masque, source)
-    # source correspond à la fiabilite (définie lors de l' application du masque)
+    coordonnees_contours = zone_de_remplissage(tableau_masque)
 
-    # ordre ( nous donnera pour savoir ou recommencer fiabilite)
+    confiance, index = calculPriority(image_masque_copie, taille_cadre, tableau_masque, coordonnees_contours,
+                                            fiabilite)
 
-    # Calcul du patch
+    list, pp = calculPatch(coordonnees_contours, index, image_masque_copie, original,
+                                                 tableau_masque, taille_cadre)
 
-    # Mise a jour des valeurs
+    im, fiabilite, source, tableau_masque = update(image_masque_copie, fiabilite, source, tableau_masque,
+                                                               coordonnees_contours, pp, list, index, taille_cadre)
 
     Vrai_Faux = False
     for i in range(lignes):
@@ -96,10 +91,6 @@ while Vrai_Faux:
 
     # on enregistre a chaque fois pour voir l' avancée
     cv2.imwrite(chemin_image[:-4] + "_résultat.jpg", image_masque_copie)
-
-
-
-
 
 plage_parasol_noir = appliquer_masque(image, masque)
 
@@ -111,4 +102,3 @@ cv2.waitKey()  # permet d' ouvrir la fenêtre
 
 
 # Commande de lancement : py main.py ./resources/images/plage_parasol.jpg ./resources/masques/masque_parasol.jpg
-#
