@@ -5,6 +5,7 @@ from PIL import ImageTk, ImageGrab
 
 from gomme.utils.zoom_ratio import get_screen_scale_rate
 
+
 # Problème il faut faire attention que l' image soit plus petite que la resolution de notre écran (resize avec le
 # slider si ce n' est pas le cas)
 
@@ -31,7 +32,7 @@ class PaintMasque:
 
         # Calcul des coordonnées x & y pour placer la fenêtre au centre
         x = int(ws / 2 - self.w / 2)
-        y = int(hs / 2 - self.h / 2)
+        y = int(hs / 2 - self.h / 2) - 30
 
         self.fenetre.geometry(f'{self.w}x{self.h}+{x}+{y}')
 
@@ -75,7 +76,7 @@ class PaintMasque:
         self.canvas.update()
         # Faire plusieurs update car sinon le screenshot est parfois pris trop rapidement et le canvas n' est pas
         # supprimer
-        
+
         bbox = self.recuperer_canvas_entourage()
         grabcanvas = ImageGrab.grab(bbox=bbox)
 

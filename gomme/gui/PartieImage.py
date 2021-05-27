@@ -4,6 +4,8 @@ from tkinter.filedialog import askopenfilename
 import PIL.Image
 from PIL import ImageTk
 
+from gomme.utils.zoom_ratio import recuperer_resolution_reelle, recuperer_resolution_ecran
+
 
 class PartieImage(Frame):
     def __init__(self, parent):
@@ -39,6 +41,17 @@ class PartieImage(Frame):
 
         self.cache_image: PIL.Image = PIL.Image.open(path)
 
+        dimensions_ecran = recuperer_resolution_ecran()
+        coeff = 1
+
+        if self.cache_image.width > dimensions_ecran[0] * 0.9:
+            coeff = (dimensions_ecran[0] * 0.9) / self.cache_image.width
+        elif self.cache_image.height > dimensions_ecran[1] * 0.9:
+            coeff = (dimensions_ecran[1] * 0.9) / self.cache_image.height
+
+        self.cache_image = self.cache_image.resize((int(self.cache_image.width * coeff), int(self.cache_image.height * coeff)))
+
+
         tk_image = ImageTk.PhotoImage(self.cache_image.resize((300, 200)))
 
         self.button.image = tk_image
@@ -51,6 +64,9 @@ class PartieImage(Frame):
         self.size_description["text"] = f"{self.cache_image.width} x {self.cache_image.height}"
         self.resize_slider.pack()
         self.size_description.pack()
+
+        self.parent.zone_masque.reinitialiser_masque()
+        self.parent.zone_rendu.image_importee()
 
     def contient_une_image(self):
         try:

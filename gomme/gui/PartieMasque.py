@@ -22,7 +22,7 @@ class PartieMasque(Frame):
         self.button.pack(ipadx=50, pady=20)
 
         self.masque = None
-        zone_masque.place(x=525, y=220)
+        zone_masque.place(x=500, y=220)
 
     def dessiner_masque(self):
         if not self.parent.zone_image.contient_une_image():
@@ -41,3 +41,10 @@ class PartieMasque(Frame):
 
         self.label["fg"] = "#00A6A5"
         self.label.update()
+
+        self.parent.zone_rendu.masque_pret()
+
+    def reinitialiser_masque(self):
+        self.label.destroy()
+        self.button.destroy()
+        self.parent.zone_masque = PartieMasque(self.parent)
