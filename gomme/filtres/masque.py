@@ -1,6 +1,8 @@
 import numpy as np
 from numpy.core.multiarray import ndarray
 
+from gomme.utils.tableau import equals
+
 
 def appliquer_masque(image: ndarray, masque: ndarray):
     tableau_image: ndarray = np.copy(image)
@@ -11,7 +13,7 @@ def appliquer_masque(image: ndarray, masque: ndarray):
 
     for i in range(lignes):
         for j in range(colonnes):
-            if tableau_masque[i, j] < 170:
+            if equals(tableau_masque[i, j], [255, 0, 0]):
                 # car les contours du masque ne sont pas totalement noir (1 seul valeur car lecture en noir|blanc)
                 tableau_image[i, j] = [255, 255, 255]  # [255, 255, 255] pour blanc ou [0, 0, 0] pour noir
                 tableau_masque[i, j] = 1
@@ -24,8 +26,8 @@ def appliquer_masque(image: ndarray, masque: ndarray):
                 fiabilite[i, j] = 1
                 # mettre un . ? #dans la copie du masque appelé fiabilité on place des 1
 
-    source = np.copy(fiabilite)  # copie de la liste confiance crée au dessus assigné a la valeur source
-    original = np.copy(fiabilite)  # copie de la liste confiance crée au dessus assigné a la valeur original
+        source = np.copy(fiabilite)  # copie de la liste confiance crée au dessus assigné a la valeur source
+        original = np.copy(fiabilite)  # copie de la liste confiance crée au dessus assigné a la valeur original
 
     return tableau_image, tableau_masque, fiabilite, source, original
 
