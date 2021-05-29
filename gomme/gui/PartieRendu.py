@@ -39,7 +39,7 @@ class PartieRendu(Frame):
             processus(self, self.parent.zone_image.cache_image, self.parent.zone_masque.masque)
 
     def refresh_image(self):
-        resultat: PIL.Image = PIL.Image.open("./resources/resultats/" + str(start_time) + "_résultat.jpg")
+        resultat: PIL.Image = PIL.Image.open("../../resources/resultats/" + str(start_time) + "_resultat.jpg")
 
         tk_image = ImageTk.PhotoImage(resultat.resize((300, 200)))
 

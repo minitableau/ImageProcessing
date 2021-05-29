@@ -13,7 +13,7 @@ def appliquer_masque(image: ndarray, masque: ndarray):
 
     for i in range(lignes):
         for j in range(colonnes):
-            if equals(tableau_masque[i, j], [255, 0, 0]):
+            if tableau_masque[i, j] < 120:
                 # car les contours du masque ne sont pas totalement noir (1 seul valeur car lecture en noir|blanc)
                 tableau_image[i, j] = [255, 255, 255]  # [255, 255, 255] pour blanc ou [0, 0, 0] pour noir
                 tableau_masque[i, j] = 1

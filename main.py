@@ -44,10 +44,15 @@ start_time = time.thread_time()
 
 def processus(zone_rendu: PartieRendu, image, masque):
     taille_cadre = 3
+
+    open_cv_image = np.array(image)
+    image = open_cv_image[:, :, ::-1].copy()
+    #Permet de passer une image PIL RGB a un BGR lu par open CV (ajout de l'interface ne supportant uniquement des PIL d'ou la conversion)
+
     image_avec_masque, tableau_masque, fiabilite, source, original = appliquer_masque(image, masque)
     # source et original sont deux listes identiques copie de la liste fiabilite
 
-    cv2.imwrite(str(start_time) + "_avec_masque.png", image_avec_masque)
+    cv2.imwrite("../../resources/masques/"+str(start_time) + "_avec_masque.png", image_avec_masque)
     # Permet d' avoir le meme chemin d' accès avec un nom explicite (on en incruste _avec_masque avant le .png)
 
     image_masque_copie = np.copy(image_avec_masque)
@@ -96,7 +101,8 @@ def processus(zone_rendu: PartieRendu, image, masque):
                     Vrai_Faux = True
 
         # on enregistre a chaque fois pour voir l' avancée
-        cv2.imwrite("./resources/resultats/" + str(start_time) + "_résultat.jpg", image_masque_copie)
+        cv2.imwrite("../../resources/resultats/"+str(start_time) + "_resultat.jpg", image_masque_copie)
+        time.sleep(20)
         zone_rendu.refresh_image()
 
     # cv2.imwrite(("./resources/resultats/Plage_arbre_noir.jpg"),plage_parasol_noir)

@@ -32,7 +32,7 @@ class PartieMasque(Frame):
         self.parent.zone_image.resize_slider.pack_forget()
 
     def afficher_masque(self):
-        self.masque: PIL.Image = PIL.Image.open("masque.jpg")
+        self.masque: PIL.Image = PIL.Image.open("masque.jpg").convert('L')
 
         tk_image = ImageTk.PhotoImage(self.masque.resize((300, 200)))
 
