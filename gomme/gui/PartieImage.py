@@ -82,6 +82,7 @@ class PartieImage(Frame):
 
         self.size_description["text"] = f"{width} x {height}"
 
+
     def recuperer_dimensions(self):
 
         slider_val = self.resize_slider.get()

@@ -47,12 +47,12 @@ def processus(zone_rendu: PartieRendu, image, masque):
 
     open_cv_image = np.array(image)
     image = open_cv_image[:, :, ::-1].copy()
-    #Permet de passer une image PIL RGB a un BGR lu par open CV (ajout de l'interface ne supportant uniquement des PIL d'ou la conversion)
+    # Permet de passer une image PIL RGB a un BGR lu par open CV (ajout de l'interface ne supportant uniquement des PIL d'ou la conversion)
 
     image_avec_masque, tableau_masque, fiabilite, source, original = appliquer_masque(image, masque)
     # source et original sont deux listes identiques copie de la liste fiabilite
 
-    cv2.imwrite("../../resources/masques/"+str(start_time) + "_avec_masque.png", image_avec_masque)
+    cv2.imwrite("../../resources/masques/" + str(start_time) + "_avec_masque.png", image_avec_masque)
     # Permet d' avoir le meme chemin d' accès avec un nom explicite (on en incruste _avec_masque avant le .png)
 
     image_masque_copie = np.copy(image_avec_masque)
@@ -60,7 +60,7 @@ def processus(zone_rendu: PartieRendu, image, masque):
 
     Vrai_Faux = True  # pour le while
 
-    print("Démarrage de la reconstitution")
+    print("Démarrage de la reconstitution \n Soyez patient ne fermé pas l' interface")
     # print("Démarrage de la reconstitution") création du compteur de manière a montrer que ca avance
 
     etape = 0  # initialisation de l' avancement
@@ -101,9 +101,13 @@ def processus(zone_rendu: PartieRendu, image, masque):
                     Vrai_Faux = True
 
         # on enregistre a chaque fois pour voir l' avancée
-        cv2.imwrite("../../resources/resultats/"+str(start_time) + "_resultat.jpg", image_masque_copie)
-        time.sleep(20)
-        zone_rendu.refresh_image()
+        cv2.imwrite("../../resources/resultats/" + str(start_time) + "_resultat.jpg", image_masque_copie)
+        time.sleep(5) #de manière a que l'image soit enregistrer cela peu prendre un petit peu de temps
+        zone_rendu.refresh_image(etape)
+
+        if Vrai_Faux == False:
+            zone_rendu.algorithme_termine()
+            cv2.imshow('Résultat', image_masque_copie)
 
     # cv2.imwrite(("./resources/resultats/Plage_arbre_noir.jpg"),plage_parasol_noir)
     # permet de sauvegarder l' image dans le dossier résultats
