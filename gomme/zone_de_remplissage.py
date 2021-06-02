@@ -18,6 +18,6 @@ def zone_de_remplissage(tableau_masque):
     for i in range(lignes):
         for j in range(colonnes):
             if contours[i, j] > 0:
-                coordonnees_contours += [
-                    (j, i)]  # inversion des indices pour avoir les coordonnés(colonnes=x et ligne = y)
+                coordonnees_contours += [(j, i)]
+                # inversion des indices pour avoir les coordonnés(colonnes=x et ligne = y)
     return coordonnees_contours

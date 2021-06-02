@@ -7,6 +7,8 @@ from gomme.gui.PartieRendu import PartieRendu
 
 class Interface(Tk):
     def __init__(self, parent):
+        """Le constructeur permet de crée le bouton fermé en haut à droite de l' interface, de placé l' interface au
+        centre de notre écran, de placé le titre en haut au milieu """
         Tk.__init__(self, parent)
 
         self.parent = parent

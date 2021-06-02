@@ -1,4 +1,3 @@
-from multiprocessing import Process
 from tkinter import *
 
 import PIL
@@ -39,16 +38,19 @@ class PartieRendu(Frame):
 
     def demarrer_gomme(self):
         if self.disponible:
-            self.chargement["text"] = "Algorithme en cour \nde fonctionnement"
+            self.chargement["text"] = "Algorithme en cours \nde fonctionnement"
             self.chargement.update()
-            self.parent.zone_image.cache_image = self.parent.zone_image.cache_image.resize(
-                self.parent.zone_image.recuperer_dimensions())
+            w, h = self.parent.zone_image.recuperer_dimensions()
+            self.parent.zone_masque.masque = self.parent.zone_masque.masque.resize((w, h))
+            self.parent.zone_image.cache_image = self.parent.zone_image.cache_image.resize((w, h))
             processus(self, self.parent.zone_image.cache_image, self.parent.zone_masque.masque)
 
-#    def lance_autre_fil_execution(self):
-#        Process(target=self.demarrer_gomme).start()
+    #    def lance_autre_fil_execution(self):
+    #        Process(target=self.demarrer_gomme).start()
+    # On a essayé de lancé l' interface sur un autre fil d' execution mais cela fut impossible à cause de Tkinter
+    # Nous avons donc abandonné l' idée
 
-    def refresh_image(self,etape):
+    def refresh_image(self, etape):
         resultat: PIL.Image = PIL.Image.open("../../resources/resultats/" + str(start_time) + "_resultat.jpg")
 
         tk_image = ImageTk.PhotoImage(resultat.resize((300, 200)))
