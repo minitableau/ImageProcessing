@@ -52,12 +52,22 @@ def processus(zone_rendu: PartieRendu, image, masque) -> None:
 
     open_cv_image = np.array(image)
 
-    #    if len(open_cv_image[0][0]) != 3:
-    #        for i in range(len(open_cv_image)):
-    #            for j in range(len(open_cv_image[i])):
-    #                open_cv_image[i][j] = open_cv_image[i][j][:3]
+# Permet d' enlever la composante transparente
 
-    image = open_cv_image[:, :, ::-1].copy()
+    if len(open_cv_image[0][0]) != 3:
+        open_cv_image2=[]
+        for i in range(len(open_cv_image)):
+            L2=[]
+            for j in range(len(open_cv_image[i])):
+                L = []
+                for k in range(3):
+                    L.append(open_cv_image[i][j][k])
+                L2+=[L]
+            open_cv_image2+=[L2]
+
+    open_cv_image2 = np.array(open_cv_image2)
+
+    image = open_cv_image2[:, :, ::-1].copy()
     # Permet de passer une image PIL RGB a un BGR lu par open CV (ajout de l' interface ne supportant uniquement des
     # PIL d' ou la conversion)
 
