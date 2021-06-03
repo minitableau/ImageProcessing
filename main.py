@@ -65,9 +65,9 @@ def processus(zone_rendu: PartieRendu, image, masque) -> None:
                 L2+=[L]
             open_cv_image2+=[L2]
 
-    open_cv_image2 = np.array(open_cv_image2)
+        open_cv_image = np.array(open_cv_image2)
 
-    image = open_cv_image2[:, :, ::-1].copy()
+    image = open_cv_image[:, :, ::-1].copy()
     # Permet de passer une image PIL RGB a un BGR lu par open CV (ajout de l' interface ne supportant uniquement des
     # PIL d' ou la conversion)
 
