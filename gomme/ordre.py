@@ -23,21 +23,3 @@ def calculFiabilite(fiabilite: list, image_masque_copie: list, taille_cadre: int
 
     return fiabilite
 
-
-def calculOrdre(image_masque_copie: list, taille_cadre: int, tableau_masque: list, coordonnees_contours: list,
-                fiabilite: list) -> tuple:
-    """Je crée une fonction qui prend en arguments un tableau, un entiers, un tableau, une liste et un tableau,
-    celle-ci permet de déterminer par quel point commencer la reconstitution, toujours le point le plus haut du masque
-     elle nous renvoie un tableau et un entier """
-
-    C = calculFiabilite(fiabilite, image_masque_copie, taille_cadre, tableau_masque, coordonnees_contours)
-    index = 0
-    maxi = 0
-    for i in range(len(coordonnees_contours)):
-        x, y = coordonnees_contours[i]
-        P = C[y, x]
-        if P > maxi:
-            maxi = P
-            index = i
-
-    return C, index

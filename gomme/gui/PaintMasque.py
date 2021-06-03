@@ -47,7 +47,7 @@ class PaintMasque:
         self.fenetre.mainloop()
 
     def setup(self):
-        """"""
+        """Je crée une fonction qui permet de paramétrer les deux cliques"""
 
         self.old_x = None
         self.old_y = None
@@ -56,7 +56,7 @@ class PaintMasque:
         self.canvas.bind('<Button-3>', self.erase)
 
     def paint(self, event):
-        """"""
+        """Je crée une fonction qui permet de dessiner sur le canvas"""
 
         if self.old_x and self.old_y:  # Commence au deuxième tick (maintient clic gauche)
             if abs(self.old_x - event.x) > (self.w / 100) or (abs(self.old_y - event.y) > (self.h / 100)):
@@ -71,13 +71,13 @@ class PaintMasque:
         self.old_y = event.y
 
     def erase(self, event):
-        """"""
+        """Je crée une fonction qui permet d' effacer notre dessin"""
 
         self.canvas.delete("all")
         self.canvas.create_image(0, 0, anchor="nw", image=self.image)
 
     def close_paint(self):
-        """"""
+        """Je crée une fonction qui permet la récupération du masque"""
 
         self.canvas.delete(self.image_fond)
         self.canvas.update()
@@ -97,7 +97,7 @@ class PaintMasque:
         self.fenetre.destroy()
 
     def recuperer_canvas_entourage(self):
-        """"""
+        """Je crée une fonction qui permet de retrouver où est placé la fenêtre"""
 
         ratio = coef_zoom()
         x = self.canvas.winfo_rootx() * ratio + self.canvas.winfo_x() * ratio

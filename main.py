@@ -7,7 +7,7 @@ from gomme.calcul_meilleur_patch import calculPatch
 from gomme.filtres.masque import appliquer_masque
 from gomme.gui import PartieRendu
 from gomme.mise_a_jour import MAJ
-from gomme.ordre import calculOrdre
+from gomme.ordre import calculFiabilite
 from gomme.zone_de_remplissage import zone_de_remplissage
 
 start_time = time.thread_time()
@@ -51,9 +51,15 @@ def processus(zone_rendu: PartieRendu, image, masque) -> None:
     taille_cadre = 3
 
     open_cv_image = np.array(image)
+
+    #    if len(open_cv_image[0][0]) != 3:
+    #        for i in range(len(open_cv_image)):
+    #            for j in range(len(open_cv_image[i])):
+    #                open_cv_image[i][j] = open_cv_image[i][j][:3]
+
     image = open_cv_image[:, :, ::-1].copy()
     # Permet de passer une image PIL RGB a un BGR lu par open CV (ajout de l' interface ne supportant uniquement des
-    # PIL d'ou la conversion)
+    # PIL d' ou la conversion)
 
     image_avec_masque, tableau_masque, fiabilite, source, original = appliquer_masque(image, masque)
     # source et original sont deux listes identiques copie de la liste fiabilite
@@ -69,6 +75,7 @@ def processus(zone_rendu: PartieRendu, image, masque) -> None:
     print("Démarrage de la reconstitution \nSoyez patient ne fermé pas l' interface")
 
     etape = 0  # initialisation de l' avancement
+    index = 0
 
     while Vrai_Faux:
         print(etape)  # permet de print l' avancement
@@ -92,13 +99,13 @@ def processus(zone_rendu: PartieRendu, image, masque) -> None:
 
         coordonnees_contours = zone_de_remplissage(tableau_masque)
 
-        fiabilite, index = calculOrdre(image_masque_copie, taille_cadre, tableau_masque, coordonnees_contours,
-                                       fiabilite)
+        fiabilite = calculFiabilite(fiabilite, image_masque_copie, taille_cadre, tableau_masque, coordonnees_contours)
 
-        L, pp = calculPatch(coordonnees_contours, index, image_masque_copie, original, tableau_masque, taille_cadre)
+        ciblem, pp = calculPatch(coordonnees_contours, index, image_masque_copie, original, tableau_masque,
+                                 taille_cadre)
 
         image_masque_copie, fiabilite, source, tableau_masque = MAJ(image_masque_copie, fiabilite, source,
-                                                                    tableau_masque, coordonnees_contours, pp, L,
+                                                                    tableau_masque, coordonnees_contours, pp, ciblem,
                                                                     index, taille_cadre)
 
         Vrai_Faux = False

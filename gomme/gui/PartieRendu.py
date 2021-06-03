@@ -8,6 +8,8 @@ from main import processus, start_time
 
 class PartieRendu(Frame):
     def __init__(self, parent):
+        """Le constructeur permet de crée tout ce qui est en lien avec la partie résultat """
+
         super().__init__(parent)
 
         self.parent = parent
@@ -28,15 +30,20 @@ class PartieRendu(Frame):
         zone_rendu.place(x=900, y=220)
 
     def image_importee(self):
+        """Je crée une fonction qui gère le bouton en attente du masque"""
+
         self.button["text"] = "En attente du masque"
         self.button.update()
 
     def masque_pret(self):
+        """Je crée une fonction qui vérifie que le masque est disponible"""
+
         self.disponible = True
         self.button["text"] = "Appuyer pour\ncommencer"
         self.button.update()
 
     def demarrer_gomme(self):
+        """Je crée une fonction qui permet de lancé la fonction principale"""
         if self.disponible:
             self.chargement["text"] = "Algorithme en cours \nde fonctionnement"
             self.chargement.update()
@@ -51,6 +58,7 @@ class PartieRendu(Frame):
     # Nous avons donc abandonné l' idée
 
     def refresh_image(self, etape):
+        """Je crée une fonction qui permet d'afficher notre résultat au fur et à mesure dans l'interface"""
         resultat: PIL.Image = PIL.Image.open("../../resources/resultats/" + str(start_time) + "_resultat.jpg")
 
         tk_image = ImageTk.PhotoImage(resultat.resize((300, 200)))
@@ -64,5 +72,6 @@ class PartieRendu(Frame):
         self.update()
 
     def algorithme_termine(self):
+        """Je crée une fonction qui change la couleur du mot Résultat"""
         self.label["fg"] = "#00A6A5"
         self.label.update()

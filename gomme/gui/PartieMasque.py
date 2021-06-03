@@ -52,7 +52,7 @@ class PartieMasque(Frame):
         self.parent.zone_rendu.masque_pret()
 
     def reinitialiser_masque(self):
-        """Je crée une fonction qui """
+        """Je crée une fonction qui permet de réinitialiser_masque """
 
         self.label.destroy()
         self.button.destroy()
